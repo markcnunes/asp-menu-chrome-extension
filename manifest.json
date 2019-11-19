@@ -1,0 +1,17 @@
+{
+    "manifest_version": 2,
+    "name": "jQuery DOM",
+    "version": "1",
+    "permissions": [
+      "contextMenus", "activeTab", "tabs", "http://*/", "https://*/"
+    ],
+    "background": {
+      "scripts": [ "background.js" ],
+      "persistent": false
+    },
+    "content_scripts": [ {
+      "js": [ "content.js" ],
+      "matches": [ "<all_urls>" ]
+    }],
+    "description": "Manipulate the DOM when the page is done loading"
+  }
