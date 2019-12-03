@@ -7,12 +7,12 @@ function genericOnClick(info, tab) {
         function() {
             if (info.menuItemId === "contextId1") {
                 chrome.tabs.sendMessage(tab.id, {
-                    message: "pageId"
+                    message: "page"
                 });
             }
             if (info.menuItemId === "contextId2") {
                 chrome.tabs.sendMessage(tab.id, {
-                    message: info
+                    message: "panels"
                 });
                 console.log("Info", info);
                 console.log("Tab", tab);
@@ -27,7 +27,7 @@ chrome.contextMenus.create({
     id: "contextId1"
 });
 chrome.contextMenus.create({
-    title: "Open panel",
+    title: "Show panels",
     contexts: ["page"],
     id: "contextId2"
 });
