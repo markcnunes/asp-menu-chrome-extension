@@ -14,8 +14,8 @@ function genericOnClick(info, tab) {
                 chrome.tabs.sendMessage(tab.id, {
                     message: "panels"
                 });
-                console.log("Info", info);
-                console.log("Tab", tab);
+                // console.log("Info", info);
+                // console.log("Tab", tab);
             }
         }
     );

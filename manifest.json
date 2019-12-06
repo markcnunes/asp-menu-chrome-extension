@@ -10,8 +10,14 @@
     "persistent": false
   },
   "content_scripts": [{
+    "css": ["theme.css"],
     "js": ["content.js"],
     "matches": ["<all_urls>"]
   }],
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
   "description": "Manipulate the DOM when the page is done loading"
 }

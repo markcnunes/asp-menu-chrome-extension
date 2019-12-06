@@ -1,0 +1,44 @@
+#asp-events-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 20px;
+    z-index: 1000;
+    width: auto;
+    height: 100vh;
+    overflow: auto;
+    background: rgba(117, 198, 175, .85);
+    overflow: auto;
+}
+
+#asp-events-panel h4 {
+    color: white;
+}
+
+#asp-events-panel .close-modal {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: black;
+    background: white;
+    padding: 10px 20px;
+}
+
+.panel-button {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    background: #fff;
+    color: #000;
+}
+
+.panel-button span {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    background: #f6ac8f;
+    color: #000;
+}
