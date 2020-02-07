@@ -14,9 +14,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         const bodyIdClass = bodyClasses.split(" ");
         const bodyId = bodyIdClass[0].split("body--id-")[1];
 
-        if () {
-            .content__main__body -not .section
-            .js-librarylistwrapper
+        if (!$('.content__main__body .section').lenght) {
             var url = `${backofficeUrl}/cbLibraries/entries/index/library/${bodyId}`;
         } else {
             var url = `${backofficeUrl}/cmsadmin/pages/editor/contentID/${bodyId}`;
@@ -24,12 +22,19 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         window.open(url, "_blank");
     } else {
         // Check if main panel doesn't exist
-        if (!$("#asp-events-panel").lenght) {
+        if (!$("#asp-ext").lenght) {
             $("body").prepend(
-                "<div id='asp-events-panel'><h4>Panels:</h4><div class='close-modal'>x</div></div>"
+               `<div id='asp-ext'>
+                    <div class='asp-ext__header'>
+                        <div class='asp-ext__header__logo' style='background-image: url("${chrome.runtime.getURL('icon128.png')}")'></div>
+                        <div class='asp-ext__header__close'>x</div>
+                    </div>
+                    <h4>Panels:</h4>
+                    <ul class='asp-ext__items'></ul>
+                </div>`
             );
             // Add main panel
-            const aspEvents = $("#asp-events-panel");
+            const aspEvents = $("#asp-ext");
 
             // Add buttons
             $(".panel").each(function() {
@@ -41,25 +46,26 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                     .attr("class")
                     .toLowerCase();
 
-                if (panelParentName.match(/(?:inner|wrapper)/g)) {
+                if (panelParentName.match(/(?:inner|wrapper|panel__body)/g)) {
                     panelParentName = $(this)
-                        .parent()
-                        .parent()
+                        .closest('div:not(.inner):not(.wrapper):not(.panel__body):not(.panel)')
                         .attr("class")
                         .toLowerCase();
                 }
 
-                aspEvents.append(
-                    `<a class='panel-button' href='${url}' target='_blank'><span>${panelParentName}</span> Panel ID: ${panelId}</a>`
+                aspEvents.find('.asp-ext__items').append(
+                    `<li class='asp-ext__items__item'>
+                        <a class='asp-ext__items__item__link' href='${url}' target='_blank'><span>${panelParentName}</span> Panel #${panelId}</a>
+                    </li>`
                 );
             });
 
             // Close panel
-            $(".close-modal").on("click", function() {
-                $("#asp-events-panel").hide();
+            $(".asp-ext__header__close").on("click", function() {
+                $("#asp-ext").hide();
             });
         } else {
-            $("#asp-events-panel").show();
+            $("#asp-ext").show();
         }
     }
     sendResponse();
