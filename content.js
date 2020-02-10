@@ -41,21 +41,22 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                 const panelClasses = $(this).attr("class");
                 const panelId = panelClasses.split("panel--id-")[1];
                 const url = `${backofficeUrl}/cmsadmin/panels/editor/contentID/${panelId}`;
-                let panelParentName = $(this)
-                    .parent()
-                    .attr("class")
-                    .toLowerCase();
+                let panelParentName = $(this).parent().attr("class").toLowerCase();
+                    
+                if (panelParentName.match(/(?:inner|wrapper|__body)/g)) {
+                    
+                    panelParentName = $(this).closest('div:not(.inner):not(.wrapper):not([class*="__body"]):not(.panel)').attr("class").toLowerCase();
 
-                if (panelParentName.match(/(?:inner|wrapper|panel__body)/g)) {
-                    panelParentName = $(this)
-                        .closest('div:not(.inner):not(.wrapper):not(.panel__body):not(.panel)')
-                        .attr("class")
-                        .toLowerCase();
+                    // If there is more than one class
+                    if (panelParentName.match(/(?: )/g)) {
+                        panelParentName = panelParentName.split(' ').join(", ");                       
+                    }
+                    
                 }
 
                 aspEvents.find('.asp-ext__items').append(
                     `<li class='asp-ext__items__item'>
-                        <a class='asp-ext__items__item__link' href='${url}' target='_blank'><span>${panelParentName}</span> Panel #${panelId}</a>
+                        <a class='asp-ext__items__item__link' href='${url}' target='_blank'><span>Panel #${panelId}</span> ${panelParentName}</a>
                     </li>`
                 );
             });

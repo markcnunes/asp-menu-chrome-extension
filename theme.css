@@ -94,6 +94,8 @@
     display: inline-block;
     padding: 10px;
     margin-right: 10px;
+/*     width: 100%;
+    max-width: 135px; */
     background: #f6ac8f;
     border-right: 1px solid #d49881;
     color: #000;
