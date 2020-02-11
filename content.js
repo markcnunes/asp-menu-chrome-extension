@@ -1,28 +1,45 @@
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
-    var pageUrl = $(location).attr("href");
+    let backofficeUrl;
+    let pageUrl = $(location).attr("href");
     console.log("page url:", pageUrl);
 
     // Backoffice URL
     if (pageUrl.toLowerCase().indexOf("local.showoff.com") > 0) {
-        var backofficeUrl = "http://local.showoff.com";
+        backofficeUrl = "http://local.showoff.com";
     } else {
-        var backofficeUrl = "https://showoff.asp.events";
+        backofficeUrl = "https://showoff.asp.events";
     }
 
     if (msg.message == "page") {
         const bodyClasses = $("body").attr("class");
         const bodyIdClass = bodyClasses.split(" ");
         const bodyId = bodyIdClass[0].split("body--id-")[1];
+        let url;
 
-        if (!$('.content__main__body .section').lenght) {
-            var url = `${backofficeUrl}/cbLibraries/entries/index/library/${bodyId}`;
-        } else {
-            var url = `${backofficeUrl}/cmsadmin/pages/editor/contentID/${bodyId}`;
+        // Check page type
+        /* Libraries or modules */
+        if (!$('.content__main__body .section').length) {
+            /* Exhibitor List */
+            if ($('.content__main__body .m-exhibitors-list').length) {
+                url = `${backofficeUrl}/cbExhibitors/exhibitor/index`;
+            } 
+            /* Seminar List */
+            else if ($('.content__main__body .m-seminar-list').length) {
+                url = `${backofficeUrl}/cbSeminars/sessions/index/library/${bodyId}`;
+            } 
+            /* Library List */
+            else if ($('.content__main__body ul[class*="library-list"]').length) {
+                url = `${backofficeUrl}/cbLibraries/entries/index/library/${bodyId}`;
+            }           
+        }
+        /* Normal page */
+        else {
+            url = `${backofficeUrl}/cmsadmin/pages/editor/contentID/${bodyId}`;
         }
         window.open(url, "_blank");
     } else {
         // Check if main panel doesn't exist
-        if (!$("#asp-ext").lenght) {
+        if (!$("#asp-ext").length) {
             $("body").prepend(
                `<div id='asp-ext'>
                     <div class='asp-ext__header'>
