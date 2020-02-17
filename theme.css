@@ -1,3 +1,13 @@
+:root {
+    --asp-color-black: #000;
+    --asp-color-white: #fff;
+    --asp-color-one: #f6ac8f;
+    --asp-color-one-rgb: 246, 172, 143;
+    --asp-color-two: #75c6af;
+    --asp-color-two-rgb: 117, 198, 175;
+    --asp-color-three: #0e7457d9;
+}
+
 #asp-ext {
     position: fixed;
     top: 0;
@@ -7,7 +17,7 @@
     width: auto;
     height: 100vh;
     overflow: auto;
-    background: rgba(117, 198, 175, .85);
+    background: rgba(var(--asp-color-two-rgb), .85);
     overflow: auto;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
@@ -20,7 +30,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    background: #0e7457d9;
+    background: var(--asp-color-three);
 }
 
 .asp-ext__header__logo {
@@ -28,7 +38,7 @@
     width: 40px;
     background-size: cover;
     background-position: center;
-    background-color: white;
+    background-color: var(--asp-color-white);
     transition: all .3 ease;
 }
 
@@ -38,22 +48,23 @@
     justify-content: center;
     height: 40px;
     width: 40px;
-    background: white;
+    background: var(--asp-color-white);
     color: black;
     cursor: pointer;
     transition: all .3 ease;
 }
 
 .asp-ext__header__close:hover {
-    color: white;
-    background: #f6ac8f;
+    color: var(--asp-color-white);
+    background: var(--asp-color-one);
 }
 
-#asp-ext h4 {
-    color: white;
+.asp-ext__title {
+    color: var(--asp-color-white);
     margin-top: 35px;
     font-weight: bold;
     font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .asp-ext__items {
@@ -73,7 +84,7 @@
     padding: 0 10px 0 0;
     margin: 10px 0;
     border-radius: 5px;
-    background: #fff;
+    background: var(--asp-color-white);
     font-size: 12px;
     transition: all .3 ease;
 }
@@ -82,22 +93,32 @@
     opacity: 1!important;
 }
 
-.asp-ext__items__item__link {
-    color: #000;
+.asp-ext__items__item__link,
+.asp-ext__items__item__text {
+    display: flex;
+    align-items: center;
+    color: var(--asp-color-black);
 }
 
 .asp-ext__items__item__link:hover {
-    color: #000;
+    color: var(--asp-color-black);
 }
 
-.asp-ext__items__item__link span {
-    display: inline-block;
+.asp-ext__items__item__link span,
+.asp-ext__items__item__text span {
+    align-self: normal;
+    display: flex;
+    align-items: center;
     padding: 10px;
     margin-right: 10px;
-/*     width: 100%;
-    max-width: 135px; */
-    background: #f6ac8f;
-    border-right: 1px solid #d49881;
-    color: #000;
+    background: var(--asp-color-one);
+    border-right: 1px solid rgba(var(--asp-color-one-rgb), .5);
+    color: var(--asp-color-black);
     transition: all .3 ease;
+}
+
+.asp-ext__items__item__link p,
+.asp-ext__items__item__text p {
+    white-space: pre;
+    padding: 5px 0;
 }
