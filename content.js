@@ -16,6 +16,13 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
     // Function: Close sidebar
     function closeSidebar() {   
+        if ($("#asp-ext").length) {
+            $("#asp-ext").remove();
+        } 
+    };
+
+    // Function: Click to close sidebar
+    function clickToCloseSidebar() {   
         $(".asp-ext__header__close").on("click", function() {
             $("#asp-ext").remove();
         });  
@@ -45,7 +52,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
         // Check page type
         /* Libraries or modules */
-        let contentMainBody = $('[class*="content__main__body"]'); // @Note: Flex websites use 'l-content__main__body'
+        let contentMainBody = $('[class*="content__main__body"]'); // @Note: Some websites use 'l-content__main__body'
         if (contentMainBody.find('.section').length == 0) {
             
             /* Exhibitor List */
@@ -68,6 +75,8 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         
         window.open(url, "_blank");
     } else if (msg.message == "panels") {
+
+        closeSidebar();
 
         // Add main panel
         addSidebar("Panels");
@@ -96,9 +105,12 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             );
         });
 
-        closeSidebar();
+        clickToCloseSidebar();
          
     } else if (msg.message == "menus") {
+
+        closeSidebar();
+
         // Add main panel
         addSidebar("Menus");
         
@@ -122,9 +134,12 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             );
         });
 
-        closeSidebar();
+        clickToCloseSidebar();
 
     } else if (msg.message == "dev") {
+
+        closeSidebar();
+
         // Add main panel
         addSidebar("Dev Info");
 
@@ -152,7 +167,6 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             url: document.location,
             success: function(data, textStatus, request){
                 let headers = request.getAllResponseHeaders();
-                // headers = headers.replace(', ', '\n');
 
                 $("#asp-ext .asp-ext__items").append(
                     `<li class='asp-ext__items__item'>
@@ -167,7 +181,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             }
         });
 
-        closeSidebar();
+        clickToCloseSidebar();
         
     }
     sendResponse();
