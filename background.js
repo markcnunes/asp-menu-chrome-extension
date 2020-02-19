@@ -1,3 +1,14 @@
+/*=============================================================================
+ |      Project:  ASP EXTENSION
+ | 
+ |  Description:  Extension to interact with the ASP backoffice.
+ |
+ |       Author:  MARK CLAUS NUNES
+ |    
+ |     Created - Date:  01/01/2022
+ *===========================================================================*/
+
+ 
 function genericOnClick(info, tab) {
     chrome.tabs.executeScript(
         null,

@@ -57,16 +57,40 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             
             /* Exhibitor List */
             if (contentMainBody.find('.m-exhibitors-list').length) {
-                url = `${backofficeUrl}/cbExhibitors/exhibitor/index`;
+                url = `${backofficeUrl}/cbExhibitors/Exhibitor/index/library/${bodyId}`;
             } 
+            /* Exhibitor Entry */
+            if (contentMainBody.find('.m-exhibitor-entry').length) {
+                url = `${backofficeUrl}/cbExhibitors/exhibitor/editor/contentID/${bodyId}`;
+            }
             /* Seminar List */
             else if (contentMainBody.find('.m-seminar-list').length) {
                 url = `${backofficeUrl}/cbSeminars/sessions/index/library/${bodyId}`;
             } 
+            /* Seminar Entry */
+            else if (contentMainBody.find('.m-seminar-entry').length) {
+                url = `${backofficeUrl}/cbSeminars/sessions/editor/contentID/${bodyId}`;
+            } 
+            /* Speaker List */
+            else if (contentMainBody.find('.m-speakers-list').length) {
+                url = `${backofficeUrl}/cbSeminars/speaker/index/library/${bodyId}`;
+            } 
+            /* Speaker Entry */
+            else if (contentMainBody.find('.m-speaker-entry').length) {
+                url = `${backofficeUrl}/cbSeminars/speaker/editor/contentID/${bodyId}`;
+            } 
+            /* Gallery List */
+            else if (contentMainBody.find('.m-galleries-list').length) {
+                url = `${backofficeUrl}/cbLibraries/gallery/edit/contentID/${bodyId}`;
+            } 
             /* Library List */
-            else if (contentMainBody.find('ul[class*="library-list"]').length) {
+            else if (contentMainBody.find('ul[class*="m-libraries-"]').length) {
                 url = `${backofficeUrl}/cbLibraries/entries/index/library/${bodyId}`;
-            }           
+            }
+            /* Library Entry */
+            else if (contentMainBody.find('.js-library-entry-item').length) {
+                url = `${backofficeUrl}/cbLibraries/entries/editor/contentID/${bodyId}`;
+            } 
         }
         /* Normal page */
         else {
