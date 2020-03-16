@@ -1,3 +1,26 @@
+$(document).ready(function(){
+    let backofficeUrl;
+    let msg;
+    let aspResponse;
+    let pageUrl = $(location).attr("href");
+
+    if (pageUrl.toLowerCase().indexOf("local.showoff.com") > 0) {
+        backofficeUrl = "http://local.showoff.com";
+        msg = "is-local";
+        aspResponse = "is-asp";
+    } else {
+        backofficeUrl = "https://showoff.asp.events";
+        msg = "not-local";
+        aspResponse = "is-asp";
+    }
+    
+    chrome.runtime.sendMessage({type: "notification", options: { 
+        asp: aspResponse,
+        message: msg,
+        url: backofficeUrl,
+    }});
+})
+
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
     // Function: Add sidebar
@@ -40,6 +63,18 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
     if (msg.message == "backoffice") {
         let url = `${backofficeUrl}/cmsadmin/dashboard`;
+        
+        window.open(url, "_blank");
+        
+    } else if (msg.message == "open-preview") {
+        
+        let url = `https://preview.showoff.asp.events${window.location.pathname}`;
+        
+        window.open(url, "_blank");
+        
+    } else if (msg.message == "open-local") {
+        
+        let url = `http://preview.local.showoff.com${window.location.pathname}`;
         
         window.open(url, "_blank");
 
